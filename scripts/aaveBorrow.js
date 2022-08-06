@@ -52,8 +52,9 @@ async function getDaiPrice() {
         "AggregatorV3Interface",
         networkConfig[network.config.chainId].daiEthPriceFeed
     )
+    // Fetching on mainet from here https://data.chain.link/ethereum/mainnet/stablecoins/dai-eth
     const price = (await daiEthPriceFeed.latestRoundData())[1]
-    console.log(`The DAI/ETH price is ${price.toString()}`)
+    console.log(`The DAI/ETH price is ${ethers.utils.formatEther(price.toString())} WETH`)
     return price
 }
 
@@ -81,9 +82,9 @@ async function getBorrowUserData(lendingPool, account) {
         totalDebtETH,
         availableBorrowsETH
     } = await lendingPool.getUserAccountData(account)
-    console.log(`You have ${totalCollateralETH} worth of ETH deposited.`)
-    console.log(`You have ${totalDebtETH} worth of ETH borrowed.`)
-    console.log(`You can borrow ${availableBorrowsETH} worth of ETH.`)
+    console.log(`You have ${ethers.utils.formatEther(totalCollateralETH)} worth of ETH deposited.`)
+    console.log(`You have ${ethers.utils.formatEther(totalDebtETH)} worth of ETH borrowed.`)
+    console.log(`You can borrow ${ethers.utils.formatEther(availableBorrowsETH)} worth of ETH.`)
     return { availableBorrowsETH, totalDebtETH }
 }
 

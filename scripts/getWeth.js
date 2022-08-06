@@ -11,11 +11,11 @@ async function getWeth() {
         deployer
     )
     const txResponse = await iWeth.deposit({
-        value: AMOUNT,
+        value: AMOUNT
     })
     await txResponse.wait(1)
     const wethBalance = await iWeth.balanceOf(deployer)
-    console.log(`Got ${wethBalance.toString()} WETH`)
+    console.log(`Got ${ethers.utils.formatEther(wethBalance.toString())} WETH`)
 }
 
 module.exports = { getWeth, AMOUNT }
